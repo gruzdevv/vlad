@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="771.0" style="-fx-background-color: BLACK;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TeacherController">
+    <children>
+        <HBox layoutX="14.0" layoutY="313.0" prefHeight="33.0" prefWidth="679.0" spacing="10.0">
+            <children>
+                <Button fx:id="insertTeacherButton" mnemonicParsing="false" onAction="#insertTeacherButton" prefHeight="33.0" prefWidth="212.0" text="Добавить" />
+                <Button fx:id="updateTeacherButton" mnemonicParsing="false" onAction="#updateTeacherButton" prefHeight="33.0" prefWidth="202.0" text="Обновить" />
+                <Button fx:id="deleteTeacherButton" mnemonicParsing="false" onAction="#deleteTeacherButton" prefHeight="33.0" prefWidth="246.0" text="Удалить" />
+            </children>
+        </HBox>
+        <TableView fx:id="TableViewTeacher" layoutX="272.0" layoutY="14.0" prefHeight="288.0" prefWidth="421.0">
+            <columns>
+                <TableColumn fx:id="teacher_idColumn" prefWidth="30.0" text="ID" />
+                <TableColumn fx:id="teacher_nameColumn" prefWidth="116.0" text="ФИО преподавателя" />
+                <TableColumn fx:id="subjectColumn" prefWidth="73.0" text="Предмет" />
+                <TableColumn fx:id="teacher_phoneColumn" prefWidth="65.0" text="Телефон" />
+                <TableColumn fx:id="teacher_emailColumn" prefWidth="64.0" text="Email" />
+                <TableColumn fx:id="department_idColumn" minWidth="0.0" prefWidth="150.0" text="ID кафедры" />
+            </columns>
+        </TableView>
+      <GridPane layoutX="20.0" layoutY="11.0" prefHeight="294.0" prefWidth="231.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+                <Label text="ID Преподавателя" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="teacher_idField" GridPane.columnIndex="1" />
+                <Label text="ФИО" textFill="WHITE" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="teacher_nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Предмет" textFill="WHITE" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="subjectField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Телефон" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+                <TextField fx:id="teacher_phoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Эл.почта" textFill="WHITE" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="teacher_emailField" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="ID кафедры" textFill="WHITE" GridPane.rowIndex="6">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="department_idField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Для добавления заполните ниже" textAlignment="CENTER" wrappingWidth="233.13671875" GridPane.rowIndex="1">
+               <font>
+                  <Font name="BebasNeueRegular" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+      <Button fx:id="closeButton" layoutX="700.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: RED;" text="X" />
+    </children>
+</AnchorPane>
