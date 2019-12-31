@@ -13,26 +13,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="660.0" style="-fx-background-color: BLACK;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotadController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="660.0" style="-fx-background-color: BLACK;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FlowerController">
     <children>
         <HBox layoutX="14.0" layoutY="369.0" prefHeight="33.0" prefWidth="567.0" spacing="10.0">
             <children>
-                <Button fx:id="insertNotadButton" mnemonicParsing="false" onAction="#insertNotadButton" prefHeight="33.0" prefWidth="124.0" text="Добавить" />
-                <Button fx:id="updateNotadButton" mnemonicParsing="false" onAction="#updateNotadButton" prefHeight="33.0" prefWidth="120.0" text="Обновить" />
-                <Button fx:id="deleteNotadButton" mnemonicParsing="false" onAction="#deleteNotadButton" prefHeight="33.0" prefWidth="119.0" text="Удалить" />
+                <Button fx:id="insertFlowerButton" mnemonicParsing="false" onAction="#insertFlowerButton" prefHeight="33.0" prefWidth="124.0" text="Добавить" />
+                <Button fx:id="updateFlowerButton" mnemonicParsing="false" onAction="#updateFlowerButton" prefHeight="33.0" prefWidth="120.0" text="Обновить" />
+                <Button fx:id="deleteFlowerButton" mnemonicParsing="false" onAction="#deleteFlowerButton" prefHeight="33.0" prefWidth="119.0" text="Удалить" />
 <!--                <Button fx:id="closeButton" layoutX="150.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeButton" prefHeight="33.0" prefWidth="166.0" text="Вернуться" />-->
             </children>
         </HBox>
-        <TableView fx:id="TableViewNotad" layoutX="265.0" layoutY="14.0" prefHeight="340.0" prefWidth="316.0">
+        <TableView fx:id="TableViewFlower" layoutX="265.0" layoutY="14.0" prefHeight="340.0" prefWidth="316.0">
             <columns>
-                <TableColumn fx:id="notad_idColumn" prefWidth="34.0" text="ID" />
-                <TableColumn fx:id="dateColumn" prefWidth="102.0" text="Дата непосещения" />
-                <TableColumn fx:id="student_idColumn" prefWidth="74.0" text="ID студента" />
-                <TableColumn fx:id="countColumn" prefWidth="130.0" text="Количество пар" />
+                <TableColumn fx:id="flower_idColumn" prefWidth="34.0" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="66.0" text="Название" />
+                <TableColumn fx:id="heightColumn" prefWidth="53.0" text="Высота" />
+                <TableColumn fx:id="priceColumn" prefWidth="67.0" text="Цена" />
+            <TableColumn fx:id="flower_countColumn" prefWidth="195.0" text="Количество" />
             </columns>
         </TableView>
         <Button fx:id="BackButton" layoutX="589.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="33.0" prefWidth="39.0" style="-fx-background-color: RED;" text="X" />
-      <GridPane layoutX="16.0" layoutY="14.0" prefHeight="208.0" prefWidth="239.0">
+      <GridPane layoutX="16.0" layoutY="14.0" prefHeight="243.0" prefWidth="239.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,37 +44,42 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-                <Label text="ID Непосещения" textFill="WHITE">
+                <Label text="ID Цветов" textFill="WHITE">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="notad_idField" GridPane.columnIndex="1" />
-                <Label prefHeight="21.0" prefWidth="159.0" text="Дата" textFill="WHITE" GridPane.rowIndex="2">
+                <TextField fx:id="flower_idField" GridPane.columnIndex="1" />
+                <Label prefHeight="21.0" prefWidth="159.0" text="Название" textFill="WHITE" GridPane.rowIndex="2">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Label prefHeight="21.0" prefWidth="151.0" text="ID Студента" textFill="WHITE" GridPane.rowIndex="3">
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label prefHeight="21.0" prefWidth="151.0" text="Высота" textFill="WHITE" GridPane.rowIndex="3">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="student_idField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label prefHeight="21.0" prefWidth="143.0" text="Количство" textFill="WHITE" GridPane.rowIndex="4">
+                <TextField fx:id="heightField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="21.0" prefWidth="143.0" text="Цена" textFill="WHITE" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-                <TextField fx:id="countField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Для добавления заполните ниже" textAlignment="CENTER" wrappingWidth="240.13671875" GridPane.rowIndex="1">
                <font>
                   <Font name="BebasNeueRegular" size="18.0" />
                </font>
             </Text>
+            <Label text="Количество" GridPane.rowIndex="5" />
+            <TextField fx:id="flower_countField" layoutX="130.0" layoutY="175.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            
+
          </children>
       </GridPane>
     </children>

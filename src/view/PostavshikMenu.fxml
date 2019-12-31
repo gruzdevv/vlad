@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="585.0" style="-fx-background-color: BLACK;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PostavshikController">
+    <children>
+        <TableView fx:id="TableViewPostavshik" layoutX="270.0" layoutY="4.0" prefHeight="382.0" prefWidth="302.0">
+            <columns>
+                <TableColumn fx:id="postavshik_idColumn" prefWidth="29.0" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="69.0" text="Название" />
+                <TableColumn fx:id="fioColumn" prefWidth="66.0" text="Ф.И.О." />
+                <TableColumn fx:id="addressColumn" prefWidth="77.0" text="Адрес" />
+                <TableColumn fx:id="phoneColumn" prefWidth="63.0" text="Телефон" />
+            </columns>
+        </TableView>
+      <GridPane layoutX="14.0" layoutY="4.0" prefHeight="263.0" prefWidth="245.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+                <Label prefHeight="21.0" prefWidth="130.0" text="ID поставщика" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+                </Label>
+                <TextField fx:id="postavshik_idField" GridPane.columnIndex="1" />
+                <Label prefHeight="21.0" prefWidth="134.0" text="Название" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="19.0" />
+               </font>
+                </Label>
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label prefHeight="21.0" prefWidth="124.0" text="ФИО" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font size="19.0" />
+               </font>
+                </Label>
+                <TextField fx:id="fioField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="21.0" prefWidth="122.0" text="Адрес" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+                <TextField fx:id="addressField" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label prefHeight="21.0" prefWidth="130.0" text="Моб.телефон" textFill="WHITE" GridPane.rowIndex="5">
+               <font>
+                  <Font size="19.0" />
+               </font>
+                </Label>
+                <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Для добавления заполните поля ниже" textAlignment="CENTER" wrappingWidth="242.13671875" GridPane.rowIndex="1">
+               <font>
+                  <Font name="BebasNeueRegular" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+          <Button fx:id="BackButton" layoutX="440.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="33.0" prefWidth="132.0" text="Вернуться" textFill="WHITE" />
+        <HBox layoutX="14.0" layoutY="278.0" prefHeight="36.0" prefWidth="245.0" spacing="10.0">
+            <children>
+                <Button fx:id="insertButton" mnemonicParsing="false" onAction="#insertButton" prefHeight="33.0" prefWidth="125.0" text="Добавить" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButton" prefHeight="33.0" prefWidth="134.0" text="Обновить" />
+            </children>
+        </HBox>
+          <Button fx:id="deleteButton" layoutX="15.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="33.0" prefWidth="245.0" text="Удалить" />
+    </children>
+</AnchorPane>

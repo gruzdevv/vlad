@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Notad;
+import library.Buyer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,46 +33,52 @@ import javafx.stage.StageStyle;
  *
  * @author khadiullin
  */
-public class NotadController implements Initializable {
+public class BuyerController implements Initializable {
     
     @FXML
-    private TextField notad_idField;
+    private TextField buyer_idField;
     
     @FXML
-    private TextField dateField;
+    private TextField fioField;
 
     @FXML
-    private TextField student_idField;
+    private TextField polField;
     
     @FXML
-    private TextField countField;
+    private TextField addressField;
+
+    @FXML
+    private TextField phoneField;
     
     @FXML
-    private Button insertNotadButton;
+    private Button insertBuyerButton;
 
     @FXML
-    private Button updateNotadButton;
+    private Button updateBuyerButton;
 
     @FXML
-    private Button deleteNotadButton;
+    private Button deleteBuyerButton;
     
     @FXML
     private Button BackButton;
     
     @FXML
-    private TableView<Notad> TableViewNotad;
+    private TableView<Buyer> TableViewBuyer;
     
     @FXML
-    private TableColumn<Notad, Integer> notad_idColumn;
+    private TableColumn<Buyer, Integer> buyer_idColumn;
     
     @FXML
-    private TableColumn<Notad, String> dateColumn;
+    private TableColumn<Buyer, String> fioColumn;
 
     @FXML
-    private TableColumn<Notad, Integer> student_idColumn;
+    private TableColumn<Buyer, String> polColumn;
     
     @FXML
-    private TableColumn<Notad, Integer> countColumn;
+    private TableColumn<Buyer, String> addressColumn;
+    
+    @FXML
+    private TableColumn<Buyer, String> phoneColumn;
     
     @FXML
     private Button closeButton;
@@ -93,7 +99,7 @@ public class NotadController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(StudentsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -106,28 +112,28 @@ public class NotadController implements Initializable {
     }
     
     @FXML
-    private void insertNotadButton() {
-    	String query = "insert into notattendance values("+notad_idField.getText()+",'"+dateField.getText()+"',"+student_idField.getText()+","+countField.getText()+")";
+    private void insertBuyerButton() {
+    	String query = "insert into buyer values("+buyer_idField.getText()+",'"+fioField.getText()+"','"+polField.getText()+"','"+addressField.getText()+"','"+phoneField.getText()+"')";
     	executeQuery(query);
-    	showNotad();
+    	showBuyer();
     }
     
     @FXML 
-    private void updateNotadButton() {
-    String query = "UPDATE notattendance SET date='"+dateField.getText()+"',student_id="+student_idField.getText()+",count="+countField.getText()+" WHERE notad_id="+notad_idField.getText()+"";
+    private void updateBuyerButton() {
+    String query = "UPDATE buyer SET fio='"+fioField.getText()+"',pol='"+polField.getText()+"',address='"+addressField.getText()+"',phone='"+phoneField.getText()+"' WHERE buyer_id="+buyer_idField.getText()+"";
     executeQuery(query);
-	showNotad();
+	showBuyer();
     }
     
     @FXML
-    private void deleteNotadButton() {
-    	String query = "DELETE FROM notattendance WHERE notad_id="+notad_idField.getText()+"";
+    private void deleteBuyerButton() {
+    	String query = "DELETE FROM buyer WHERE buyer_id="+buyer_idField.getText()+"";
     	executeQuery(query);
-    	showNotad();
+    	showBuyer();
     }
     
     public void executeQuery(String query) {
-    	Connection conn = getConnectionNotad();
+    	Connection conn = getConnectionBuyer();
     	Statement st;
     	try {
 			st = conn.createStatement();
@@ -138,13 +144,13 @@ public class NotadController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	showNotad();
+    	showBuyer();
     }
     
-    public Connection getConnectionNotad() {
+    public Connection getConnectionBuyer() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162551.srv.hoster.ru:3306/srv162551_db","srv162551_root","2010dima");
+    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162551.srv.hoster.ru:3306/srv162551_grafinina","srv162551_root","2010dima");
     		return conn;
     	}
     	catch (Exception e){
@@ -153,36 +159,37 @@ public class NotadController implements Initializable {
     	}
     }
       
-    public ObservableList<Notad> getNotadList(){
-    	ObservableList<Notad> notadList = FXCollections.observableArrayList();
-    	Connection connection = getConnectionNotad();
-    	String query = "SELECT * FROM notattendance ";
+    public ObservableList<Buyer> getBuyerList(){
+    	ObservableList<Buyer> buyerList = FXCollections.observableArrayList();
+    	Connection connection = getConnectionBuyer();
+    	String query = "SELECT * FROM buyer ";
     	Statement st;
     	ResultSet rs;
     	
     	try {
 			st = connection.createStatement();
 			rs = st.executeQuery(query);
-			Notad notad;
+			Buyer buyer;
 			while(rs.next()) {
-				notad = new Notad(rs.getInt("notad_id"),rs.getString("date"),rs.getInt("student_id"),rs.getInt("count"));
-				notadList.add(notad);
+				buyer = new Buyer(rs.getInt("buyer_id"),rs.getString("fio"),rs.getString("pol"),rs.getString("address"),rs.getString("phone"));
+				buyerList.add(buyer);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return notadList;
+    	return buyerList;
     }
     
-    public void showNotad() {
-    	ObservableList<Notad> list_notad = getNotadList();
+    public void showBuyer() {
+    	ObservableList<Buyer> list_buyer = getBuyerList();
     	
-    	notad_idColumn.setCellValueFactory(new PropertyValueFactory<Notad,Integer>("notad_id"));
-    	dateColumn.setCellValueFactory(new PropertyValueFactory<Notad,String>("date"));
-    	student_idColumn.setCellValueFactory(new PropertyValueFactory<Notad,Integer>("student_id"));
-        countColumn.setCellValueFactory(new PropertyValueFactory<Notad,Integer>("count"));
+    	buyer_idColumn.setCellValueFactory(new PropertyValueFactory<Buyer,Integer>("buyer_id"));
+    	fioColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("fio"));
+    	polColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("pol"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("address"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("phone"));
         
-    	TableViewNotad.setItems(list_notad);
+    	TableViewBuyer.setItems(list_buyer);
         
         
     }
