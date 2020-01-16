@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Buyer;
+import library.Operation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,54 +31,42 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author khadiullin
+ * @author IVANOVA D.
  */
-public class BuyerController implements Initializable {
+public class OperationController implements Initializable {
     
     @FXML
-    private TextField buyer_idField;
+    private TextField operation_idField;
     
     @FXML
-    private TextField fioField;
+    private TextField operation_typeField;
 
     @FXML
-    private TextField polField;
+    private TextField operation_priceField;
     
     @FXML
-    private TextField addressField;
+    private Button insertOperationButton;
 
     @FXML
-    private TextField phoneField;
-    
-    @FXML
-    private Button insertBuyerButton;
+    private Button updateOperationButton;
 
     @FXML
-    private Button updateBuyerButton;
-
-    @FXML
-    private Button deleteBuyerButton;
+    private Button deleteOperationButton;
     
     @FXML
     private Button BackButton;
     
     @FXML
-    private TableView<Buyer> TableViewBuyer;
+    private TableView<Operation> TableViewOperation;
     
     @FXML
-    private TableColumn<Buyer, Integer> buyer_idColumn;
+    private TableColumn<Operation, Integer> operation_idColumn;
     
     @FXML
-    private TableColumn<Buyer, String> fioColumn;
+    private TableColumn<Operation, String> operation_typeColumn;
 
     @FXML
-    private TableColumn<Buyer, String> polColumn;
-    
-    @FXML
-    private TableColumn<Buyer, String> addressColumn;
-    
-    @FXML
-    private TableColumn<Buyer, String> phoneColumn;
+    private TableColumn<Operation, String> operation_priceColumn;
     
     @FXML
     private Button closeButton;
@@ -91,7 +79,7 @@ public class BuyerController implements Initializable {
             Scene sceneMenu = new Scene(fxmlLoader.load());
             Stage stageMenu = new Stage();
             stageMenu.initModality(Modality.NONE);
-            stageMenu.setTitle("Menu table");
+            stageMenu.setTitle("Operation table");
             stageMenu.setScene(sceneMenu);
             stageMenu.show();
             System.out.println(" *Кнопка 'btnOK' нажата");
@@ -99,7 +87,7 @@ public class BuyerController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -112,28 +100,28 @@ public class BuyerController implements Initializable {
     }
     
     @FXML
-    private void insertBuyerButton() {
-    	String query = "insert into buyer values("+buyer_idField.getText()+",'"+fioField.getText()+"','"+polField.getText()+"','"+addressField.getText()+"','"+phoneField.getText()+"')";
+    private void insertOperationButton() {
+    	String query = "insert into operation values("+operation_idField.getText()+",'"+operation_typeField.getText()+"','"+operation_priceField.getText()+"')";
     	executeQuery(query);
-    	showBuyer();
+    	showOperation();
     }
     
     @FXML 
-    private void updateBuyerButton() {
-    String query = "UPDATE buyer SET fio='"+fioField.getText()+"',pol='"+polField.getText()+"',address='"+addressField.getText()+"',phone='"+phoneField.getText()+"' WHERE buyer_id="+buyer_idField.getText()+"";
+    private void updateOperationButton() {
+    String query = "UPDATE operation SET operation_type='"+operation_typeField.getText()+"',operation_price='"+operation_priceField.getText()+"' WHERE operation_id="+operation_idField.getText()+"";
     executeQuery(query);
-	showBuyer();
+	showOperation();
     }
     
     @FXML
-    private void deleteBuyerButton() {
-    	String query = "DELETE FROM buyer WHERE buyer_id="+buyer_idField.getText()+"";
+    private void deleteOperationButton() {
+    	String query = "DELETE FROM operation WHERE operation_id="+operation_idField.getText()+"";
     	executeQuery(query);
-    	showBuyer();
+    	showOperation();
     }
     
     public void executeQuery(String query) {
-    	Connection conn = getConnectionBuyer();
+    	Connection conn = getConnectionOperation();
     	Statement st;
     	try {
 			st = conn.createStatement();
@@ -144,13 +132,13 @@ public class BuyerController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	showBuyer();
+    	showOperation();
     }
     
-    public Connection getConnectionBuyer() {
+    public Connection getConnectionOperation() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162551.srv.hoster.ru:3306/srv162551_grafinina","srv162551_root","2010dima");
+    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
     		return conn;
     	}
     	catch (Exception e){
@@ -159,37 +147,35 @@ public class BuyerController implements Initializable {
     	}
     }
       
-    public ObservableList<Buyer> getBuyerList(){
-    	ObservableList<Buyer> buyerList = FXCollections.observableArrayList();
-    	Connection connection = getConnectionBuyer();
-    	String query = "SELECT * FROM buyer ";
+    public ObservableList<Operation> getOperationList(){
+    	ObservableList<Operation> operationList = FXCollections.observableArrayList();
+    	Connection connection = getConnectionOperation();
+    	String query = "SELECT * FROM operation ";
     	Statement st;
     	ResultSet rs;
     	
     	try {
 			st = connection.createStatement();
 			rs = st.executeQuery(query);
-			Buyer buyer;
+			Operation operation;
 			while(rs.next()) {
-				buyer = new Buyer(rs.getInt("buyer_id"),rs.getString("fio"),rs.getString("pol"),rs.getString("address"),rs.getString("phone"));
-				buyerList.add(buyer);
+				operation = new Operation(rs.getInt("operation_id"),rs.getString("operation_type"),rs.getString("operation_price"));
+				operationList.add(operation);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return buyerList;
+    	return operationList;
     }
     
-    public void showBuyer() {
-    	ObservableList<Buyer> list_buyer = getBuyerList();
+    public void showOperation() {
+    	ObservableList<Operation> list_operation = getOperationList();
     	
-    	buyer_idColumn.setCellValueFactory(new PropertyValueFactory<Buyer,Integer>("buyer_id"));
-    	fioColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("fio"));
-    	polColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("pol"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("address"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<Buyer,String>("phone"));
+    	operation_idColumn.setCellValueFactory(new PropertyValueFactory<Operation,Integer>("operation_id"));
+    	operation_typeColumn.setCellValueFactory(new PropertyValueFactory<Operation,String>("operation_type"));
+    	operation_priceColumn.setCellValueFactory(new PropertyValueFactory<Operation,String>("operation_price"));
         
-    	TableViewBuyer.setItems(list_buyer);
+    	TableViewOperation.setItems(list_operation);
         
         
     }

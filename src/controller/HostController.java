@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Flower;
+import library.Host;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,54 +31,48 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author grafinina
+ * @author INANOVA D.
  */
-public class FlowerController implements Initializable {
+public class HostController implements Initializable {
     
     @FXML
-    private TextField flower_idField;
+    private TextField host_idField;
     
     @FXML
-    private TextField nameField;
+    private TextField host_nameField;
 
     @FXML
-    private TextField heightField;
+    private TextField host_phoneField;
     
     @FXML
-    private TextField priceField;
-
-    @FXML
-    private TextField flower_countField;
+    private TextField host_emailField;
     
     @FXML
-    private Button insertFlowerButton;
+    private Button insertHostButton;
 
     @FXML
-    private Button updateFlowerButton;
+    private Button updateHostButton;
 
     @FXML
-    private Button deleteFlowerButton;
+    private Button deleteHostButton;
     
     @FXML
     private Button BackButton;
     
     @FXML
-    private TableView<Flower> TableViewFlower;
+    private TableView<Host> TableViewHost;
     
     @FXML
-    private TableColumn<Flower, Integer> flower_idColumn;
+    private TableColumn<Host, Integer> host_idColumn;
     
     @FXML
-    private TableColumn<Flower, String> nameColumn;
+    private TableColumn<Host, String> host_nameColumn;
 
     @FXML
-    private TableColumn<Flower, String> heightColumn;
+    private TableColumn<Host, String> host_phoneColumn;
     
     @FXML
-    private TableColumn<Flower, String> priceColumn;
-    
-    @FXML
-    private TableColumn<Flower, String> flower_countColumn;
+    private TableColumn<Host, String> host_emailColumn;
     
     @FXML
     private Button closeButton;
@@ -91,7 +85,7 @@ public class FlowerController implements Initializable {
             Scene sceneMenu = new Scene(fxmlLoader.load());
             Stage stageMenu = new Stage();
             stageMenu.initModality(Modality.NONE);
-            stageMenu.setTitle("Menu table");
+            stageMenu.setTitle("Host table");
             stageMenu.setScene(sceneMenu);
             stageMenu.show();
             System.out.println(" *Кнопка 'btnOK' нажата");
@@ -99,7 +93,7 @@ public class FlowerController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -112,28 +106,28 @@ public class FlowerController implements Initializable {
     }
     
     @FXML
-    private void insertFlowerButton() {
-    	String query = "insert into flower values("+flower_idField.getText()+",'"+nameField.getText()+"','"+heightField.getText()+"','"+priceField.getText()+"','"+flower_countField.getText()+"')";
+    private void insertHostButton() {
+    	String query = "insert into host values("+host_idField.getText()+",'"+host_nameField.getText()+"','"+host_phoneField.getText()+"','"+host_emailField.getText()+"')";
     	executeQuery(query);
-    	showFlower();
+    	showHost();
     }
     
     @FXML 
-    private void updateFlowerButton() {
-    String query = "UPDATE flower SET name='"+nameField.getText()+"',height='"+heightField.getText()+"',price='"+priceField.getText()+"',flower_count='"+flower_countField.getText()+"' WHERE flower_id="+flower_idField.getText()+"";
+    private void updateHostButton() {
+    String query = "UPDATE host SET host_name='"+host_nameField.getText()+"',host_phone='"+host_phoneField.getText()+"',host_email='"+host_emailField.getText()+"' WHERE host_id="+host_idField.getText()+"";
     executeQuery(query);
-	showFlower();
+	showHost();
     }
     
     @FXML
-    private void deleteFlowerButton() {
-    	String query = "DELETE FROM flower WHERE flower_id="+flower_idField.getText()+"";
+    private void deleteHostButton() {
+    	String query = "DELETE FROM host WHERE host_id="+host_idField.getText()+"";
     	executeQuery(query);
-    	showFlower();
+    	showHost();
     }
     
     public void executeQuery(String query) {
-    	Connection conn = getConnectionFlower();
+    	Connection conn = getConnectionHost();
     	Statement st;
     	try {
 			st = conn.createStatement();
@@ -144,13 +138,13 @@ public class FlowerController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	showFlower();
+    	showHost();
     }
     
-    public Connection getConnectionFlower() {
+    public Connection getConnectionHost() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162551.srv.hoster.ru:3306/srv162551_grafinina","srv162551_root","2010dima");
+    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
     		return conn;
     	}
     	catch (Exception e){
@@ -159,37 +153,36 @@ public class FlowerController implements Initializable {
     	}
     }
       
-    public ObservableList<Flower> getFlowerList(){
-    	ObservableList<Flower> flowerList = FXCollections.observableArrayList();
-    	Connection connection = getConnectionFlower();
-    	String query = "SELECT * FROM flower ";
+    public ObservableList<Host> getHostList(){
+    	ObservableList<Host> hostList = FXCollections.observableArrayList();
+    	Connection connection = getConnectionHost();
+    	String query = "SELECT * FROM host ";
     	Statement st;
     	ResultSet rs;
     	
     	try {
 			st = connection.createStatement();
 			rs = st.executeQuery(query);
-			Flower flower;
+			Host host;
 			while(rs.next()) {
-				flower = new Flower(rs.getInt("flower_id"),rs.getString("name"),rs.getString("height"),rs.getString("price"),rs.getString("flower_count"));
-				flowerList.add(flower);
+				host = new Host(rs.getInt("host_id"),rs.getString("host_name"),rs.getString("host_phone"),rs.getString("host_email"));
+				hostList.add(host);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return flowerList;
+    	return hostList;
     }
     
-    public void showFlower() {
-    	ObservableList<Flower> list_flower = getFlowerList();
+    public void showHost() {
+    	ObservableList<Host> list_host = getHostList();
     	
-    	flower_idColumn.setCellValueFactory(new PropertyValueFactory<Flower,Integer>("flower_id"));
-    	nameColumn.setCellValueFactory(new PropertyValueFactory<Flower,String>("name"));
-    	heightColumn.setCellValueFactory(new PropertyValueFactory<Flower,String>("height"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Flower,String>("price"));
-        flower_countColumn.setCellValueFactory(new PropertyValueFactory<Flower,String>("flower_count"));
+    	host_idColumn.setCellValueFactory(new PropertyValueFactory<Host,Integer>("host_id"));
+    	host_nameColumn.setCellValueFactory(new PropertyValueFactory<Host,String>("host_name"));
+    	host_phoneColumn.setCellValueFactory(new PropertyValueFactory<Host,String>("host_phone"));
+        host_emailColumn.setCellValueFactory(new PropertyValueFactory<Host,String>("host_email"));
         
-    	TableViewFlower.setItems(list_flower);
+    	TableViewHost.setItems(list_host);
         
         
     }

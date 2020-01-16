@@ -30,7 +30,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author grafinina
+ * @author IVANOVA D.
  */
 public class MenuController implements Initializable {
 
@@ -44,22 +44,20 @@ public class MenuController implements Initializable {
     private StackPane parentContainer;
 
     @FXML
-    private Button nextPostavkaButton;
+    private Button nextAnimalButton;
 
     @FXML
-    private Button nextFlowerButton;
+    private Button nextTypeButton;
 
     @FXML
-    private Button nextWorkerButton;
+    private Button nextHostButton;
 
     @FXML
-    private Button nextKvitokButton;
+    private Button nextOrderButton;
 
     @FXML
-    private Button nextBuyerButton;
+    private Button nextOperationButton;
 
-    @FXML
-    private Button nextPostavshikiButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,100 +85,84 @@ public class MenuController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == nextPostavshikiButton) {
+        if (event.getSource() == nextAnimalButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/PostavshikMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AnimalMenu.fxml"));
                 Scene sceneStudents = new Scene(fxmlLoader.load());
                 Stage stageStudents = new Stage();
                 stageStudents.initModality(Modality.NONE);
                 //убрать панельку
                 stageStudents.initStyle(StageStyle.UNDECORATED); 
-                stageStudents.setTitle("Учёт поставщиков");
+                stageStudents.setTitle("Учёт животных");
                 stageStudents.setScene(sceneStudents);
                 stageStudents.show();
             } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        if (event.getSource() == nextWorkerButton) {
+        if (event.getSource() == nextHostButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/WorkerMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HostMenu.fxml"));
                 Scene sceneCity = new Scene(fxmlLoader.load());
                 Stage stageCity = new Stage();
                 stageCity.initModality(Modality.NONE);
                 //убрать панельку
                 stageCity.initStyle(StageStyle.UNDECORATED); 
-                stageCity.setTitle("Учёт всех сотрудников");
+                stageCity.setTitle("Учёт всех владельцев");
                 stageCity.setScene(sceneCity);
                 stageCity.show();
             } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
 
-        if (event.getSource() == nextBuyerButton) {
+        if (event.getSource() == nextOperationButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/BuyerMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/OperationMenu.fxml"));
                 Scene sceneDepartment = new Scene(fxmlLoader.load());
                 Stage stageDepartment = new Stage();
                 stageDepartment.initModality(Modality.NONE);
                 //убрать панельку
                 stageDepartment.initStyle(StageStyle.UNDECORATED); 
-                stageDepartment.setTitle("Учёт покупателей");
+                stageDepartment.setTitle("Журнал операций");
                 stageDepartment.setScene(sceneDepartment);
                 stageDepartment.show();
             } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        if (event.getSource() == nextKvitokButton) {
+        if (event.getSource() == nextOrderButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/KvitokMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/OrderMenu.fxml"));
                 Scene sceneTeacher = new Scene(fxmlLoader.load());
                 Stage stageTeacher = new Stage();
                 stageTeacher.initModality(Modality.NONE);
                 //убрать панельку
                 stageTeacher.initStyle(StageStyle.UNDECORATED); 
-                stageTeacher.setTitle("Чеки магазина");
+                stageTeacher.setTitle("Журнал услуг");
                 stageTeacher.setScene(sceneTeacher);
                 stageTeacher.show();
             } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        if (event.getSource() == nextFlowerButton) {
+        if (event.getSource() == nextTypeButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/FlowerMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/TypeMenu.fxml"));
                 Scene sceneNotad = new Scene(fxmlLoader.load());
                 Stage stageNotad = new Stage();
                 stageNotad.initModality(Modality.NONE);
                 //убрать панельку
                 stageNotad.initStyle(StageStyle.UNDECORATED); 
-                stageNotad.setTitle("Журанал цветов");
+                stageNotad.setTitle("Типы животных");
                 stageNotad.setScene(sceneNotad);
                 stageNotad.show();
             } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        if (event.getSource() == nextPostavkaButton) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/PostavkaMenu.fxml"));
-                Scene sceneStcourse = new Scene(fxmlLoader.load());
-                Stage stageStcourse = new Stage();
-                stageStcourse.initModality(Modality.NONE);
-                //убрать панельку
-                stageStcourse.initStyle(StageStyle.UNDECORATED); 
-                stageStcourse.setTitle("Учёт поставок");
-                stageStcourse.setScene(sceneStcourse);
-                stageStcourse.show();
-            } catch (IOException ex) {
-                Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

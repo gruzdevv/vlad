@@ -16,8 +16,7 @@ public class Main extends Application {
                 "/view/Menu.fxml"));
         Scene sceneMain = new Scene(parent);
         stageMain.setScene(sceneMain);
-        //stageMain.initStyle(StageStyle.UNDECORATED);
-        stageMain.setTitle("Khadiullin program");
+        stageMain.setTitle("Ветеринарная клиника");
         stageMain.show();
         
     }

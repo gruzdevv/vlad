@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Worker;
+import library.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,54 +31,48 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author grafinina
+ * @author IVANOVA D.
  */
-public class WorkerController implements Initializable {
+public class OrderController implements Initializable {
     
     @FXML
-    private TextField worker_idField;
+    private TextField order_idField;
     
     @FXML
-    private TextField fioField;
+    private TextField animal_idField;
 
     @FXML
-    private TextField postField;
+    private TextField operation_idField;
     
     @FXML
-    private TextField addressField;
-
-    @FXML
-    private TextField phoneField;
+    private TextField order_dateField;
     
     @FXML
-    private Button insertWorkerButton;
+    private Button insertOrderButton;
 
     @FXML
-    private Button updateWorkerButton;
+    private Button updateOrderButton;
 
     @FXML
-    private Button deleteWorkerButton;
+    private Button deleteOrderButton;
     
     @FXML
     private Button BackButton;
     
     @FXML
-    private TableView<Worker> TableViewWorker;
+    private TableView<Order> TableViewOrder;
     
     @FXML
-    private TableColumn<Worker, Integer> worker_idColumn;
+    private TableColumn<Order, Integer> order_idColumn;
     
     @FXML
-    private TableColumn<Worker, String> fioColumn;
+    private TableColumn<Order, Integer> animal_idColumn;
 
     @FXML
-    private TableColumn<Worker, String> postColumn;
+    private TableColumn<Order, Integer> operation_idColumn;
     
     @FXML
-    private TableColumn<Worker, String> addressColumn;
-    
-    @FXML
-    private TableColumn<Worker, String> phoneColumn;
+    private TableColumn<Order, String> order_dateColumn;
     
     @FXML
     private Button closeButton;
@@ -91,7 +85,7 @@ public class WorkerController implements Initializable {
             Scene sceneMenu = new Scene(fxmlLoader.load());
             Stage stageMenu = new Stage();
             stageMenu.initModality(Modality.NONE);
-            stageMenu.setTitle("Menu table");
+            stageMenu.setTitle("Order table");
             stageMenu.setScene(sceneMenu);
             stageMenu.show();
             System.out.println(" *Кнопка 'btnOK' нажата");
@@ -99,7 +93,7 @@ public class WorkerController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(PostavshikController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -112,28 +106,28 @@ public class WorkerController implements Initializable {
     }
     
     @FXML
-    private void insertWorkerButton() {
-    	String query = "insert into worker values("+worker_idField.getText()+",'"+fioField.getText()+"','"+postField.getText()+"','"+addressField.getText()+"','"+phoneField.getText()+"')";
+    private void insertOrderButton() {
+    	String query = "insert into orders values("+order_idField.getText()+","+animal_idField.getText()+","+operation_idField.getText()+",'"+order_dateField.getText()+"')";
     	executeQuery(query);
-    	showWorker();
+    	showOrder();
     }
     
     @FXML 
-    private void updateWorkerButton() {
-    String query = "UPDATE worker SET fio='"+fioField.getText()+"',post='"+postField.getText()+"',address='"+addressField.getText()+"',phone='"+phoneField.getText()+"' WHERE worker_id="+worker_idField.getText()+"";
+    private void updateOrderButton() {
+    String query = "UPDATE orders SET animal_id="+animal_idField.getText()+",operation_id="+operation_idField.getText()+",order_date='"+order_dateField.getText()+"' WHERE order_id="+order_idField.getText()+"";
     executeQuery(query);
-	showWorker();
+	showOrder();
     }
     
     @FXML
-    private void deleteWorkerButton() {
-    	String query = "DELETE FROM worker WHERE worker_id="+worker_idField.getText()+"";
+    private void deleteOrderButton() {
+    	String query = "DELETE FROM orders WHERE order_id="+order_idField.getText()+"";
     	executeQuery(query);
-    	showWorker();
+    	showOrder();
     }
     
     public void executeQuery(String query) {
-    	Connection conn = getConnectionWorker();
+    	Connection conn = getConnectionOrder();
     	Statement st;
     	try {
 			st = conn.createStatement();
@@ -144,13 +138,13 @@ public class WorkerController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	showWorker();
+    	showOrder();
     }
     
-    public Connection getConnectionWorker() {
+    public Connection getConnectionOrder() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162551.srv.hoster.ru:3306/srv162551_grafinina","srv162551_root","2010dima");
+    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
     		return conn;
     	}
     	catch (Exception e){
@@ -159,37 +153,36 @@ public class WorkerController implements Initializable {
     	}
     }
       
-    public ObservableList<Worker> getWorkerList(){
-    	ObservableList<Worker> workerList = FXCollections.observableArrayList();
-    	Connection connection = getConnectionWorker();
-    	String query = "SELECT * FROM worker ";
+    public ObservableList<Order> getOrderList(){
+    	ObservableList<Order> orderList = FXCollections.observableArrayList();
+    	Connection connection = getConnectionOrder();
+    	String query = "SELECT * FROM orders ";
     	Statement st;
     	ResultSet rs;
     	
     	try {
 			st = connection.createStatement();
 			rs = st.executeQuery(query);
-			Worker worker;
+			Order order;
 			while(rs.next()) {
-				worker = new Worker(rs.getInt("worker_id"),rs.getString("fio"),rs.getString("post"),rs.getString("address"),rs.getString("phone"));
-				workerList.add(worker);
+				order = new Order(rs.getInt("order_id"),rs.getInt("animal_id"),rs.getInt("operation_id"),rs.getString("order_date"));
+				orderList.add(order);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return workerList;
+    	return orderList;
     }
     
-    public void showWorker() {
-    	ObservableList<Worker> list_worker = getWorkerList();
+    public void showOrder() {
+    	ObservableList<Order> list_order = getOrderList();
     	
-    	worker_idColumn.setCellValueFactory(new PropertyValueFactory<Worker,Integer>("worker_id"));
-    	fioColumn.setCellValueFactory(new PropertyValueFactory<Worker,String>("fio"));
-    	postColumn.setCellValueFactory(new PropertyValueFactory<Worker,String>("post"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Worker,String>("address"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<Worker,String>("phone"));
+    	order_idColumn.setCellValueFactory(new PropertyValueFactory<Order,Integer>("order_id"));
+    	animal_idColumn.setCellValueFactory(new PropertyValueFactory<Order,Integer>("animal_id"));
+    	operation_idColumn.setCellValueFactory(new PropertyValueFactory<Order,Integer>("operation_id"));
+        order_dateColumn.setCellValueFactory(new PropertyValueFactory<Order,String>("order_date"));
         
-    	TableViewWorker.setItems(list_worker);
+    	TableViewOrder.setItems(list_order);
         
         
     }
