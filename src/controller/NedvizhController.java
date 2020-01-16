@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Animal;
+import library.Nedvizh;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,34 +54,34 @@ public class NedvizhController implements Initializable {
     private Button closeButton;
 
     @FXML
-    private Button insertAnimalButton;
+    private Button insertNedvizhButton;
 
     @FXML
-    private Button updateAnimalButton;
+    private Button updateNedvizhButton;
 
     @FXML
-    private Button deleteAnimalButton;
+    private Button deleteNedvizhButton;
 
     @FXML
-    private TableView<Animal> TableViewAnimal;
+    private TableView<Nedvizh> TableViewNedvizh;
 
     @FXML
-    private TableColumn<Animal, Integer> animal_idColumn;
+    private TableColumn<Nedvizh, Integer> nedvizh_idColumn;
 
     @FXML
-    private TableColumn<Animal, String> animal_nickColumn;
+    private TableColumn<Nedvizh, String> nedvizh_nameColumn;
 
     @FXML
-    private TableColumn<Animal, String> animal_nameColumn;
+    private TableColumn<Nedvizh, Integer> raion_idColumn;
 
     @FXML
-    private TableColumn<Animal, String> animal_birthdayColumn;
+    private TableColumn<Nedvizh, Integer> street_idColumn;
 
     @FXML
-    private TableColumn<Animal, Integer> type_idColumn;
+    private TableColumn<Nedvizh, Integer> typened_idColumn;
 
     @FXML
-    private TableColumn<Animal, Integer> host_idColumn;
+    private TableColumn<Nedvizh, String> nedvizh_priceColumn;
     
     @FXML
     public void closeButton() {
@@ -90,7 +90,7 @@ public class NedvizhController implements Initializable {
             Scene sceneTeacher = new Scene(fxmlLoader.load());
             Stage stageTeacher = new Stage();
             stageTeacher.initModality(Modality.NONE);
-            stageTeacher.setTitle("Animal table");
+            stageTeacher.setTitle("Nedvizh table");
             stageTeacher.setScene(sceneTeacher);
             stageTeacher.show();
             System.out.println(" *Кнопка 'btnOK' нажата");
@@ -98,7 +98,7 @@ public class NedvizhController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     @FXML
@@ -113,24 +113,24 @@ public class NedvizhController implements Initializable {
     }
     
     @FXML
-    private void insertAnimalButton() {
-        String query = "insert into animal values("+ nedvizh_idField.getText() + ",'" + nedvizh_nameField.getText() + "','" + raion_idField.getText() + "','" + street_idField.getText() + "'," + typened_idField.getText() + "," + nedvizh_priceField.getText() +")";
+    private void insertNedvizhButton() {
+        String query = "insert into nedvizh values("+ nedvizh_idField.getText() + ",'" + nedvizh_nameField.getText() + "'," + raion_idField.getText() + "," + street_idField.getText() + "," + typened_idField.getText() + ",'" + nedvizh_priceField.getText() +"')";
         executeQuery(query);
-        showAnimal();
+        showNedvizh();
     }
 
     @FXML
-    private void updateAnimalButton() {
-        String query = "UPDATE animal SET animal_nick='" + nedvizh_nameField.getText() + "',animal_name='" + raion_idField.getText() + "',animal_birthday='" + street_idField.getText() + "',type_id=" + typened_idField.getText() + ",host_id=" + nedvizh_priceField.getText() + " WHERE animal_id=" + nedvizh_idField.getText() + "";
+    private void updateNedvizhButton() {
+        String query = "UPDATE nedvizh SET nedvizh_name='" + nedvizh_nameField.getText() + "',raion_id=" + raion_idField.getText() + ",street_id=" + street_idField.getText() + ",typened_id=" + typened_idField.getText() + ",nedvizh_price='" + nedvizh_priceField.getText() + "' WHERE nedvizh_id=" + nedvizh_idField.getText() + "";
         executeQuery(query);
-        showAnimal();
+        showNedvizh();
     }
 
     @FXML
-    private void deleteAnimalButton() {
-        String query = "DELETE FROM animal WHERE animal_id=" + nedvizh_idField.getText() + "";
+    private void deleteNedvizhButton() {
+        String query = "DELETE FROM nedvizh WHERE nedvizh_id=" + nedvizh_idField.getText() + "";
         executeQuery(query);
-        showAnimal();
+        showNedvizh();
     }
 
     public void executeQuery(String query) {
@@ -146,13 +146,13 @@ public class NedvizhController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showAnimal();
+        showNedvizh();
     }
 
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vladdb", "root", "pi159357");
             return conn;
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,39 +160,39 @@ public class NedvizhController implements Initializable {
         }
     }
 
-    public ObservableList<Animal> getAnimalList() {
-        ObservableList<Animal> animalList = FXCollections.observableArrayList();
+    public ObservableList<Nedvizh> getNedvizhList() {
+        ObservableList<Nedvizh> nedvizhList = FXCollections.observableArrayList();
         Connection connection = getConnection();
-        String query = "SELECT * FROM animal ";
+        String query = "SELECT * FROM nedvizh ";
         Statement st;
         ResultSet rs;
 
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
-            Animal animal;
+            Nedvizh nedvizh;
             while (rs.next()) {
-                animal = new Animal(rs.getInt("animal_id"), rs.getString("animal_nick"), rs.getString("animal_name"), rs.getString("animal_birthday"), rs.getInt("type_id"), rs.getInt("host_id"));
-                animalList.add(animal);
+                nedvizh = new Nedvizh(rs.getInt("nedvizh_id"), rs.getString("nedvizh_name"), rs.getInt("raion_id"), rs.getInt("street_id"), rs.getInt("typened_id"), rs.getString("nedvizh_price"));
+                nedvizhList.add(nedvizh);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return animalList;
+        return nedvizhList;
     }
 
     // I had to change ArrayList to ObservableList I didn't find another option to do this but this works :)
-    public void showAnimal() {
-        ObservableList<Animal> list_animal = getAnimalList();
+    public void showNedvizh() {
+        ObservableList<Nedvizh> list_nedvizh = getNedvizhList();
 
-        animal_idColumn.setCellValueFactory(new PropertyValueFactory<Animal, Integer>("animal_id"));
-        animal_nickColumn.setCellValueFactory(new PropertyValueFactory<Animal, String>("animal_nick"));
-        animal_nameColumn.setCellValueFactory(new PropertyValueFactory<Animal, String>("animal_name"));
-        animal_birthdayColumn.setCellValueFactory(new PropertyValueFactory<Animal, String>("animal_birthday"));
-        type_idColumn.setCellValueFactory(new PropertyValueFactory<Animal, Integer>("type_id"));
-        host_idColumn.setCellValueFactory(new PropertyValueFactory<Animal, Integer>("host_id"));
+        nedvizh_idColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, Integer>("nedvizh_id"));
+        nedvizh_nameColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, String>("nedvizh_name"));
+        raion_idColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, Integer>("raion_id"));
+        street_idColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, Integer>("street_id"));
+        typened_idColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, Integer>("typened_id"));
+        nedvizh_priceColumn.setCellValueFactory(new PropertyValueFactory<Nedvizh, String>("nedvizh_price"));
         
-        TableViewAnimal.setItems(list_animal);
+        TableViewNedvizh.setItems(list_nedvizh);
 
     }
 
