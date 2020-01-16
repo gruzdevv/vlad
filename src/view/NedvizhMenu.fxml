@@ -82,10 +82,10 @@
           <Button fx:id="BackButton" layoutX="519.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="33.0" prefWidth="132.0" text="Вернуться" textFill="WHITE" />
         <HBox layoutX="14.0" layoutY="317.0" prefHeight="36.0" prefWidth="245.0" spacing="10.0">
             <children>
-                <Button fx:id="insertButton" mnemonicParsing="false" onAction="#insertAnimalButton" prefHeight="33.0" prefWidth="125.0" text="Добавить" />
-                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateAnimalButton" prefHeight="33.0" prefWidth="134.0" text="Обновить" />
+                <Button fx:id="insertButton" mnemonicParsing="false" onAction="#insertNedvizhButton" prefHeight="33.0" prefWidth="125.0" text="Добавить" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateNedvizhButton" prefHeight="33.0" prefWidth="134.0" text="Обновить" />
             </children>
         </HBox>
-          <Button fx:id="deleteButton" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteAnimalButton" prefHeight="33.0" prefWidth="245.0" text="Удалить" />
+          <Button fx:id="deleteButton" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteNedvizhButton" prefHeight="33.0" prefWidth="245.0" text="Удалить" />
     </children>
 </AnchorPane>

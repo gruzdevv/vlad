@@ -44,13 +44,13 @@ public class MenuController implements Initializable {
     private StackPane parentContainer;
 
     @FXML
-    private Button nextAnimalButton;
+    private Button nextNedvizhButton;
 
     @FXML
     private Button nextTypeButton;
 
     @FXML
-    private Button nextHostButton;
+    private Button nextRaionButton;
 
     @FXML
     private Button nextOrderButton;
@@ -85,9 +85,9 @@ public class MenuController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == nextAnimalButton) {
+        if (event.getSource() == nextNedvizhButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AnimalMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/NedvizhMenu.fxml"));
                 Scene sceneStudents = new Scene(fxmlLoader.load());
                 Stage stageStudents = new Stage();
                 stageStudents.initModality(Modality.NONE);
@@ -97,13 +97,13 @@ public class MenuController implements Initializable {
                 stageStudents.setScene(sceneStudents);
                 stageStudents.show();
             } catch (IOException ex) {
-                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        if (event.getSource() == nextHostButton) {
+        if (event.getSource() == nextRaionButton) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HostMenu.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/RaionMenu.fxml"));
                 Scene sceneCity = new Scene(fxmlLoader.load());
                 Stage stageCity = new Stage();
                 stageCity.initModality(Modality.NONE);
@@ -113,7 +113,7 @@ public class MenuController implements Initializable {
                 stageCity.setScene(sceneCity);
                 stageCity.show();
             } catch (IOException ex) {
-                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -130,7 +130,7 @@ public class MenuController implements Initializable {
                 stageDepartment.setScene(sceneDepartment);
                 stageDepartment.show();
             } catch (IOException ex) {
-                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -146,7 +146,7 @@ public class MenuController implements Initializable {
                 stageTeacher.setScene(sceneTeacher);
                 stageTeacher.show();
             } catch (IOException ex) {
-                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -162,7 +162,7 @@ public class MenuController implements Initializable {
                 stageNotad.setScene(sceneNotad);
                 stageNotad.show();
             } catch (IOException ex) {
-                Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

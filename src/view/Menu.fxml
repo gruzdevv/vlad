@@ -21,8 +21,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="nextStreetButton" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="220.0" text="Улицы" textFill="WHITE" GridPane.columnIndex="1" />
-                        <Button fx:id="nextRaionButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="256.0" text="Районы" textFill="WHITE" GridPane.rowIndex="1" />
+                        <Button fx:id="nextRaionButton" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="220.0" text="Районы" textFill="WHITE" GridPane.columnIndex="1" />
+                        <Button fx:id="nextStreetButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="256.0" text="Улицы" textFill="WHITE" GridPane.rowIndex="1" />
                         <Button fx:id="nextTypenedButton" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="242.0" text="Типы" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   
                         <Button fx:id="nextNedvizhButton" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="62.0" prefWidth="203.0" text="Недвижимость" textFill="WHITE" />

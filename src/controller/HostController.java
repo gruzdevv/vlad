@@ -93,7 +93,7 @@ public class HostController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -144,8 +144,9 @@ public class HostController implements Initializable {
     public Connection getConnectionHost() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
-    		return conn;
+    		//conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
+    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vladdb", "root", "pi159357");
+                return conn;
     	}
     	catch (Exception e){
     		e.printStackTrace();

@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import library.Operation;
+import library.Raion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,42 +31,36 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author IVANOVA D.
+ * @author 
  */
-public class OperationController implements Initializable {
+public class RaionController implements Initializable {
     
     @FXML
-    private TextField operation_idField;
+    private TextField raion_idField;
     
     @FXML
-    private TextField operation_typeField;
-
-    @FXML
-    private TextField operation_priceField;
+    private TextField raion_nameField;
     
     @FXML
-    private Button insertOperationButton;
+    private Button insertRaionButton;
 
     @FXML
-    private Button updateOperationButton;
+    private Button updateRaionButton;
 
     @FXML
-    private Button deleteOperationButton;
+    private Button deleteRaionButton;
     
     @FXML
     private Button BackButton;
     
     @FXML
-    private TableView<Operation> TableViewOperation;
+    private TableView<Raion> TableViewRaion;
     
     @FXML
-    private TableColumn<Operation, Integer> operation_idColumn;
+    private TableColumn<Raion, Integer> raion_idColumn;
     
     @FXML
-    private TableColumn<Operation, String> operation_typeColumn;
-
-    @FXML
-    private TableColumn<Operation, String> operation_priceColumn;
+    private TableColumn<Raion, String> raion_nameColumn;
     
     @FXML
     private Button closeButton;
@@ -79,7 +73,7 @@ public class OperationController implements Initializable {
             Scene sceneMenu = new Scene(fxmlLoader.load());
             Stage stageMenu = new Stage();
             stageMenu.initModality(Modality.NONE);
-            stageMenu.setTitle("Operation table");
+            stageMenu.setTitle("Raion table");
             stageMenu.setScene(sceneMenu);
             stageMenu.show();
             System.out.println(" *Кнопка 'btnOK' нажата");
@@ -87,7 +81,7 @@ public class OperationController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         } catch (IOException ex) {
-            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NedvizhController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -100,28 +94,28 @@ public class OperationController implements Initializable {
     }
     
     @FXML
-    private void insertOperationButton() {
-    	String query = "insert into operation values("+operation_idField.getText()+",'"+operation_typeField.getText()+"','"+operation_priceField.getText()+"')";
+    private void insertRaionButton() {
+    	String query = "insert into raion values("+raion_idField.getText()+",'"+raion_nameField.getText()+"')";
     	executeQuery(query);
-    	showOperation();
+    	showRaion();
     }
     
     @FXML 
-    private void updateOperationButton() {
-    String query = "UPDATE operation SET operation_type='"+operation_typeField.getText()+"',operation_price='"+operation_priceField.getText()+"' WHERE operation_id="+operation_idField.getText()+"";
+    private void updateRaionButton() {
+    String query = "UPDATE raion SET raion_name='"+raion_nameField.getText()+"' WHERE raion_id="+raion_idField.getText()+"";
     executeQuery(query);
-	showOperation();
+	showRaion();
     }
     
     @FXML
-    private void deleteOperationButton() {
-    	String query = "DELETE FROM operation WHERE operation_id="+operation_idField.getText()+"";
+    private void deleteRaionButton() {
+    	String query = "DELETE FROM raion WHERE raion_id="+raion_idField.getText()+"";
     	executeQuery(query);
-    	showOperation();
+    	showRaion();
     }
     
     public void executeQuery(String query) {
-    	Connection conn = getConnectionOperation();
+    	Connection conn = getConnectionRaion();
     	Statement st;
     	try {
 			st = conn.createStatement();
@@ -132,13 +126,13 @@ public class OperationController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	showOperation();
+    	showRaion();
     }
     
-    public Connection getConnectionOperation() {
+    public Connection getConnectionRaion() {
     	Connection conn;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_ramm", "srv162920_dasha", "dasha1999");
+    		conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_vladdb", "srv162920_vlad", "vlad2000");
     		return conn;
     	}
     	catch (Exception e){
@@ -147,35 +141,34 @@ public class OperationController implements Initializable {
     	}
     }
       
-    public ObservableList<Operation> getOperationList(){
-    	ObservableList<Operation> operationList = FXCollections.observableArrayList();
-    	Connection connection = getConnectionOperation();
-    	String query = "SELECT * FROM operation ";
+    public ObservableList<Raion> getRaionList(){
+    	ObservableList<Raion> raionList = FXCollections.observableArrayList();
+    	Connection connection = getConnectionRaion();
+    	String query = "SELECT * FROM raion ";
     	Statement st;
     	ResultSet rs;
     	
     	try {
 			st = connection.createStatement();
 			rs = st.executeQuery(query);
-			Operation operation;
+			Raion raion;
 			while(rs.next()) {
-				operation = new Operation(rs.getInt("operation_id"),rs.getString("operation_type"),rs.getString("operation_price"));
-				operationList.add(operation);
+				raion = new Raion(rs.getInt("raion_id"),rs.getString("raion_name"));
+				raionList.add(raion);
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return operationList;
+    	return raionList;
     }
     
-    public void showOperation() {
-    	ObservableList<Operation> list_operation = getOperationList();
+    public void showRaion() {
+    	ObservableList<Raion> list_raion = getRaionList();
     	
-    	operation_idColumn.setCellValueFactory(new PropertyValueFactory<Operation,Integer>("operation_id"));
-    	operation_typeColumn.setCellValueFactory(new PropertyValueFactory<Operation,String>("operation_type"));
-    	operation_priceColumn.setCellValueFactory(new PropertyValueFactory<Operation,String>("operation_price"));
+    	raion_idColumn.setCellValueFactory(new PropertyValueFactory<Raion,Integer>("raion_id"));
+    	raion_nameColumn.setCellValueFactory(new PropertyValueFactory<Raion,String>("raion_name"));
         
-    	TableViewOperation.setItems(list_operation);
+    	TableViewRaion.setItems(list_raion);
         
         
     }

@@ -153,6 +153,7 @@ public class NedvizhController implements Initializable {
         Connection conn;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vladdb", "root", "pi159357");
+            //conn = DriverManager.getConnection("jdbc:mysql://mysql-162920.srv.hoster.ru:3306/srv162920_vladdb", "srv162920_vlad", "vlad2000");
             return conn;
         } catch (Exception e) {
             e.printStackTrace();
